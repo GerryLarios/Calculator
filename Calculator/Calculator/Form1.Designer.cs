@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtOperation = new System.Windows.Forms.TextBox();
             this.btnCalculate = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtPreOrder = new System.Windows.Forms.TextBox();
-            this.txtPostOrder = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtPreOrderResult = new System.Windows.Forms.TextBox();
+            this.txtOperation = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtPostOrderResult = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtPreOrderResult = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtPostOrder = new System.Windows.Forms.TextBox();
+            this.txtPreOrder = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +54,23 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Operation";
+            // 
+            // btnCalculate
+            // 
+            this.btnCalculate.Location = new System.Drawing.Point(230, 61);
+            this.btnCalculate.Name = "btnCalculate";
+            this.btnCalculate.Size = new System.Drawing.Size(75, 23);
+            this.btnCalculate.TabIndex = 1;
+            this.btnCalculate.Text = "Calculate";
+            this.btnCalculate.UseVisualStyleBackColor = true;
+            this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
+            // 
+            // txtOperation
+            // 
+            this.txtOperation.Location = new System.Drawing.Point(6, 35);
+            this.txtOperation.Name = "txtOperation";
+            this.txtOperation.Size = new System.Drawing.Size(299, 20);
+            this.txtOperation.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -72,74 +89,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Results";
             // 
-            // txtOperation
-            // 
-            this.txtOperation.Location = new System.Drawing.Point(6, 35);
-            this.txtOperation.Name = "txtOperation";
-            this.txtOperation.Size = new System.Drawing.Size(299, 20);
-            this.txtOperation.TabIndex = 0;
-            // 
-            // btnCalculate
-            // 
-            this.btnCalculate.Location = new System.Drawing.Point(230, 61);
-            this.btnCalculate.Name = "btnCalculate";
-            this.btnCalculate.Size = new System.Drawing.Size(75, 23);
-            this.btnCalculate.TabIndex = 1;
-            this.btnCalculate.Text = "Calculate";
-            this.btnCalculate.UseVisualStyleBackColor = true;
-            this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Pre Order";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 98);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Post Order";
-            // 
-            // txtPreOrder
-            // 
-            this.txtPreOrder.Location = new System.Drawing.Point(15, 52);
-            this.txtPreOrder.Name = "txtPreOrder";
-            this.txtPreOrder.ReadOnly = true;
-            this.txtPreOrder.Size = new System.Drawing.Size(185, 20);
-            this.txtPreOrder.TabIndex = 2;
-            // 
-            // txtPostOrder
-            // 
-            this.txtPostOrder.Location = new System.Drawing.Point(15, 114);
-            this.txtPostOrder.Name = "txtPostOrder";
-            this.txtPostOrder.ReadOnly = true;
-            this.txtPostOrder.Size = new System.Drawing.Size(185, 20);
-            this.txtPostOrder.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(204, 36);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Results";
-            // 
-            // txtPreOrderResult
-            // 
-            this.txtPreOrderResult.Location = new System.Drawing.Point(206, 52);
-            this.txtPreOrderResult.Name = "txtPreOrderResult";
-            this.txtPreOrderResult.ReadOnly = true;
-            this.txtPreOrderResult.Size = new System.Drawing.Size(93, 20);
-            this.txtPreOrderResult.TabIndex = 6;
-            // 
             // txtPostOrderResult
             // 
             this.txtPostOrderResult.Location = new System.Drawing.Point(206, 114);
@@ -153,9 +102,60 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(204, 98);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 13);
+            this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Results";
+            this.label4.Text = "Result";
+            // 
+            // txtPreOrderResult
+            // 
+            this.txtPreOrderResult.Location = new System.Drawing.Point(206, 52);
+            this.txtPreOrderResult.Name = "txtPreOrderResult";
+            this.txtPreOrderResult.ReadOnly = true;
+            this.txtPreOrderResult.Size = new System.Drawing.Size(93, 20);
+            this.txtPreOrderResult.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(204, 36);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Result";
+            // 
+            // txtPostOrder
+            // 
+            this.txtPostOrder.Location = new System.Drawing.Point(15, 114);
+            this.txtPostOrder.Name = "txtPostOrder";
+            this.txtPostOrder.ReadOnly = true;
+            this.txtPostOrder.Size = new System.Drawing.Size(185, 20);
+            this.txtPostOrder.TabIndex = 3;
+            // 
+            // txtPreOrder
+            // 
+            this.txtPreOrder.Location = new System.Drawing.Point(15, 52);
+            this.txtPreOrder.Name = "txtPreOrder";
+            this.txtPreOrder.ReadOnly = true;
+            this.txtPreOrder.Size = new System.Drawing.Size(185, 20);
+            this.txtPreOrder.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 98);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Post Order";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Pre Order";
             // 
             // Form1
             // 

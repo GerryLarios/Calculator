@@ -81,6 +81,9 @@ namespace Calculator
 
                 txtPostOrder.Text = analyzer.PrintTreePostOrder();
                 txtPreOrder.Text = analyzer.PrintTreePreOrder();
+
+                txtPreOrderResult.Text = analyzer.PrintPreOrderResult().ToString();
+                txtPostOrderResult.Text = analyzer.PrintPostOrderResult().ToString();
             }
             else
             {

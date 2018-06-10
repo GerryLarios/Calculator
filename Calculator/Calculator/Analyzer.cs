@@ -10,8 +10,12 @@ namespace Calculator
     {
         LinkedList list;
         Tree tree;
+
         string preOrder;
         string postOrder;
+
+        double preOrderResult;
+        double postOrderResult;
 
         public Analyzer()
         {
@@ -29,6 +33,9 @@ namespace Calculator
 
             preOrder = tree.PreOrder();
             postOrder = tree.PostOrder();
+
+            CalculateResultByPreOrder();
+            CalculateResultByPostOrder();
         }
 
         private void AddElements(string str)
@@ -141,7 +148,134 @@ namespace Calculator
 
         private void CalculateResultByPreOrder()
         {
+            LIFO stack = new LIFO();
 
+            if (IsNumber(preOrder[0].ToString()) == false)
+            {
+                for (int i = preOrder.Length - 1; i >= 0; i--)
+                {
+                    if (IsNumber(preOrder[i].ToString()) == true)
+                    {
+                        stack.Push(new Element(preOrder[i].ToString()));
+                    }
+                    else
+                    {
+                        if (preOrder[i].ToString() == "+")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) + Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else if (preOrder[i].ToString() == "-")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) - Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else if (preOrder[i].ToString() == "*")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) * Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) / Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < preOrder.Length; i++)
+                {
+                    if (IsNumber(preOrder[i].ToString()) == true)
+                    {
+                        stack.Push(new Element(preOrder[i].ToString()));
+                    }
+                    else
+                    {
+                        if (preOrder[i].ToString() == "+")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) + Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else if (preOrder[i].ToString() == "-")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) - Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else if (preOrder[i].ToString() == "*")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) * Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) / Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                    }
+                }
+            }
+
+            preOrderResult = Convert.ToDouble(stack.Pop().Value);
+        }
+
+        private void CalculateResultByPostOrder()
+        {
+            LIFO stack = new LIFO();
+
+            if (IsNumber(postOrder[0].ToString()) == false)
+            {
+                for (int i = postOrder.Length - 1; i >= 0; i--)
+                {
+                    if (IsNumber(postOrder[i].ToString()) == true)
+                    {
+                        stack.Push(new Element(postOrder[i].ToString()));
+                    }
+                    else
+                    {
+                        if (postOrder[i].ToString() == "+")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) + Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else if (postOrder[i].ToString() == "-")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) - Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else if (postOrder[i].ToString() == "*")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) * Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) / Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < postOrder.Length; i++)
+                {
+                    if (IsNumber(postOrder[i].ToString()) == true)
+                    {
+                        stack.Push(new Element(postOrder[i].ToString()));
+                    }
+                    else
+                    {
+                        if (postOrder[i].ToString() == "+")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) + Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else if (postOrder[i].ToString() == "-")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) - Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else if (postOrder[i].ToString() == "*")
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) * Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                        else
+                        {
+                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) / Convert.ToDouble(stack.Pop().Value)).ToString()));
+                        }
+                    }
+                }
+            }
+
+            postOrderResult = Convert.ToDouble(stack.Pop().Value);
         }
 
         public string PrintElements()
@@ -164,6 +298,16 @@ namespace Calculator
             return preOrder;
         }
 
+        public double PrintPreOrderResult()
+        {
+            return preOrderResult;
+        }
+
+        public double PrintPostOrderResult()
+        {
+            return postOrderResult;
+        }
+
         public string PrintTreePostOrder()
         {
             if (String.IsNullOrEmpty(postOrder))
@@ -177,6 +321,15 @@ namespace Calculator
         private bool IsNumber(Element aux)
         {
             if (aux.Value == "0" || aux.Value == "1" || aux.Value == "2" || aux.Value == "3" || aux.Value == "4" || aux.Value == "5" || aux.Value == "6" || aux.Value == "7" || aux.Value == "8" || aux.Value == "9")
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsNumber(string value)
+        {
+            if (value == "0" || value == "1" || value == "2" || value == "3" || value == "4" || value == "5" || value == "6" || value == "7" || value == "8" || value == "9")
             {
                 return true;
             }
