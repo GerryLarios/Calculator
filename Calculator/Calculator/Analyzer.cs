@@ -25,20 +25,22 @@ namespace Calculator
 
         public void AnalyzeOperation(string str)
         {
-            AddElements(str);
-            AddLevels();
+            AddElements(str, list);
+            AddLevels(list.LastElement);
 
-            BuildNodesByLevels();
-            BuildTree();
+            BuildNodesByLevels(list);
+            BuildTree(list.LastElement, 1);
+            BuildTree(list.LastElement, 2);
 
             preOrder = tree.PreOrder();
+            Console.WriteLine(preOrder);
             postOrder = tree.PostOrder();
 
-            CalculateResultByPreOrder();
-            CalculateResultByPostOrder();
+            preOrderResult = CalculateResult(preOrder);
+            postOrderResult = CalculateResult(postOrder);
         }
 
-        private void AddElements(string str)
+        private void AddElements(string str, LinkedList list)
         {
             for (int i = 0; i < str.Length; i++)
             {
@@ -46,10 +48,9 @@ namespace Calculator
             }
         }
 
-        private void AddLevels()
+        private void AddLevels(Element aux)
         {
             int level = 2;
-            Element aux = list.LastElement;
             while (aux != null)
             {
                 if (IsNumber(aux) == false)
@@ -74,7 +75,7 @@ namespace Calculator
             }
         }
 
-        private void BuildNodesByLevels()
+        private void BuildNodesByLevels(LinkedList list)
         {
             Element aux = list.FirstElement;
             while (aux != null)
@@ -122,23 +123,11 @@ namespace Calculator
             }
         }
 
-        private void BuildTree()
+        private void BuildTree(Element aux, int level)
         {
-            Element aux = list.LastElement;
-
             while (aux != null)
             {
-                if (aux.Level == 1)
-                {
-                    tree.Add(aux);
-                }
-                aux = aux.Previous;
-            }
-
-            aux = list.LastElement;
-            while (aux != null)
-            {
-                if (aux.Level == 2)
+                if (aux.Level == level)
                 {
                     tree.Add(aux);
                 }
@@ -146,138 +135,69 @@ namespace Calculator
             }
         }
 
-        private void CalculateResultByPreOrder()
+        private double CalculateResult(string order)
         {
             LIFO stack = new LIFO();
-
-            if (IsNumber(preOrder[0].ToString()) == false)
+            if (IsNumber(order[0].ToString()) == true)
             {
-                for (int i = preOrder.Length - 1; i >= 0; i--)
+                for (int i = 0; i < order.Length; i++)
                 {
-                    if (IsNumber(preOrder[i].ToString()) == true)
-                    {
-                        stack.Push(new Element(preOrder[i].ToString()));
-                    }
-                    else
-                    {
-                        if (preOrder[i].ToString() == "+")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) + Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else if (preOrder[i].ToString() == "-")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) - Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else if (preOrder[i].ToString() == "*")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) * Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) / Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                    }
+                    BuildStack(ref stack, order[i].ToString());
                 }
             }
             else
             {
-                for (int i = 0; i < preOrder.Length; i++)
+                for (int i = order.Length - 1; i >= 0; i--)
                 {
-                    if (IsNumber(preOrder[i].ToString()) == true)
-                    {
-                        stack.Push(new Element(preOrder[i].ToString()));
-                    }
-                    else
-                    {
-                        if (preOrder[i].ToString() == "+")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) + Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else if (preOrder[i].ToString() == "-")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) - Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else if (preOrder[i].ToString() == "*")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) * Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) / Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                    }
+                    BuildStack(ref stack, order[i].ToString());
                 }
             }
 
-            preOrderResult = Convert.ToDouble(stack.Pop().Value);
+            return Convert.ToDouble(stack.Pop().Value);
         }
 
-        private void CalculateResultByPostOrder()
+        private void BuildStack(ref LIFO stack, string str)
         {
-            LIFO stack = new LIFO();
-
-            if (IsNumber(postOrder[0].ToString()) == false)
+            if (IsNumber(str.ToString()) == true)
             {
-                for (int i = postOrder.Length - 1; i >= 0; i--)
-                {
-                    if (IsNumber(postOrder[i].ToString()) == true)
-                    {
-                        stack.Push(new Element(postOrder[i].ToString()));
-                    }
-                    else
-                    {
-                        if (postOrder[i].ToString() == "+")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) + Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else if (postOrder[i].ToString() == "-")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) - Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else if (postOrder[i].ToString() == "*")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) * Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) / Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                    }
-                }
+                stack.Push(new Element(str));
             }
             else
             {
-                for (int i = 0; i < postOrder.Length; i++)
-                {
-                    if (IsNumber(postOrder[i].ToString()) == true)
-                    {
-                        stack.Push(new Element(postOrder[i].ToString()));
-                    }
-                    else
-                    {
-                        if (postOrder[i].ToString() == "+")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) + Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else if (postOrder[i].ToString() == "-")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) - Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else if (postOrder[i].ToString() == "*")
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) * Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                        else
-                        {
-                            stack.Push(new Element((Convert.ToDouble(stack.Pop().Value) / Convert.ToDouble(stack.Pop().Value)).ToString()));
-                        }
-                    }
-                }
+                stack.Push(MakeOperation(stack.Pop().Value, stack.Pop().Value, str.ToString()));
             }
-
-            postOrderResult = Convert.ToDouble(stack.Pop().Value);
         }
 
+        private Element MakeOperation(string firstValue, string secondValue, string operation)
+        {
+            Element result;
+            double value;
+
+            switch (operation)
+            {
+                case "+":
+                    value = Convert.ToDouble(firstValue) + Convert.ToDouble(secondValue);
+                    result = new Element(Convert.ToString(value));
+                    break;
+                case "-":
+                    value = Convert.ToDouble(firstValue) - Convert.ToDouble(secondValue);
+                    result = new Element(Convert.ToString(value));
+                    break;
+                case "*":
+                    value = Convert.ToDouble(firstValue) * Convert.ToDouble(secondValue);
+                    result = new Element(Convert.ToString(value));
+                    break;
+                case "/":
+                    value = Convert.ToDouble(firstValue) / Convert.ToDouble(secondValue);
+                    result = new Element(Convert.ToString(value));
+                    break;
+                default:
+                    result = null;
+                    break;
+            }
+            
+            return result;
+        }
         public string PrintElements()
         {
             return list.ToList();
@@ -294,7 +214,6 @@ namespace Calculator
             {
                 preOrder = tree.PreOrder();
             }
-
             return preOrder;
         }
 
@@ -314,7 +233,6 @@ namespace Calculator
             {
                 postOrder = tree.PostOrder();
             }
-
             return postOrder;
         }
         
